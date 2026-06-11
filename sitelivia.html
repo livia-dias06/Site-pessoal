@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lívia Dias — Desenvolvedora Frontend</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-pink: #FF2D9B;
+    --neon-purple: #9B2DFF;
+    --cyber-teal: #00FFEA;
+    --deep-space: #0D0718;
+    --void: #06030F;
+    --lavender: #C8A8FF;
+    --text-dim: #8B7AA8;
+    --surface: #130A24;
+    --surface2: #1C0F35;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--void);
+    color: #EDE8FF;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(155, 45, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(155, 45, 255, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(6, 3, 15, 0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(155, 45, 255, 0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'Orbitron', monospace;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--neon-pink); }
+
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(155,45,255,0.18) 0%, rgba(255,45,155,0.08) 40%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: pulse-orb 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse-orb {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+    50% { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: var(--cyber-teal);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0.85;
+  }
+
+  .hero-name {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, #FF2D9B 0%, #C040FF 40%, #7B2DFF 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+    font-weight: 400;
+    color: var(--lavender);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .hero-desc {
+    max-width: 540px;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+  }
+
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+  .btn-primary {
+    padding: 0.85rem 2rem;
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-outline {
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: var(--lavender);
+    text-decoration: none;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid rgba(155, 45, 255, 0.4);
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--neon-purple); color: #fff; }
+
+  section { position: relative; z-index: 1; padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--neon-pink);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--neon-pink);
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    color: #EDE8FF;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    max-width: 580px;
+    margin-bottom: 3rem;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid rgba(155, 45, 255, 0.15);
+    margin: 0;
+  }
+
+  /* SOBRE */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-avatar {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(155,45,255,0.3), rgba(255,45,155,0.2));
+    border: 2px solid rgba(155, 45, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--lavender);
+    margin: 0 auto;
+    position: relative;
+    letter-spacing: -0.04em;
+  }
+
+  .about-avatar::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 45, 155, 0.2);
+    animation: spin-ring 8s linear infinite;
+  }
+
+  @keyframes spin-ring {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Badge de experiência */
+  .experience-badge {
+    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid rgba(0, 255, 234, 0.3);
+    background: rgba(0, 255, 234, 0.05);
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--cyber-teal);
+    animation: blink 1.4s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .badge-text {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--cyber-teal);
+    text-transform: uppercase;
+  }
+
+  .about-tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+
+  .tag {
+    padding: 0.35rem 0.9rem;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid rgba(155, 45, 255, 0.35);
+    color: var(--lavender);
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  }
+
+  /* HABILIDADES */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid rgba(155, 45, 255, 0.2);
+    padding: 1.75rem;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    transition: border-color 0.2s;
+  }
+  .skill-card:hover { border-color: rgba(255, 45, 155, 0.4); }
+
+  .skill-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+
+  .skill-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: #EDE8FF;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .skill-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin-bottom: 1.2rem;
+  }
+
+  .skill-bar-track {
+    height: 3px;
+    background: rgba(155, 45, 255, 0.2);
+    width: 100%;
+    position: relative;
+  }
+
+  .skill-bar-fill {
+    position: absolute;
+    top: 0; left: 0; height: 100%;
+    background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
+  }
+
+  .skill-level {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    color: var(--neon-pink);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  /* PROJETOS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid rgba(155, 45, 255, 0.2);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card:hover { border-color: var(--neon-pink); transform: translateY(-4px); }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .project-card:hover::before { opacity: 1; }
+
+  .project-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    color: var(--neon-pink);
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  .project-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #EDE8FF;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+
+  .project-tag {
+    font-size: 0.7rem;
+    font-family: 'Orbitron', monospace;
+    color: var(--cyber-teal);
+    border: 1px solid rgba(0, 255, 234, 0.25);
+    padding: 0.2rem 0.6rem;
+    letter-spacing: 0.08em;
+  }
+
+  .project-link {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--neon-pink);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 0.8rem; }
+
+  /* CONTATO */
+  #contact { text-align: center; padding-bottom: 8rem; }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.75rem;
+    background: var(--surface);
+    border: 1px solid rgba(155, 45, 255, 0.25);
+    color: var(--lavender);
+    text-decoration: none;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--neon-purple); color: #fff; }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid rgba(155, 45, 255, 0.1);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { gap: 1.2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-avatar { width: 200px; height: 200px; font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">LD.SYS</span>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projetos</a></li>
+    <li><a href="#contact">Contato</a></li>
+  </ul>
+</nav>
+
+<div id="hero">
+  <p class="hero-eyebrow">// estudante de ciência da computação — Mackleaps</p>
+  <h1 class="hero-name">Lívia Dias</h1>
+  <p class="hero-title">Desenvolvedora Frontend & Pesquisadora</p>
+  <p class="hero-desc">Construindo interfaces que unem lógica e estética — da teoria da computação ao pixel que aparece na tela.</p>
+  <div class="hero-buttons">
+    <a href="#projects" class="btn-primary">Ver Projetos</a>
+    <a href="#contact" class="btn-outline">Entre em Contato</a>
+  </div>
+</div>
+
+<hr class="divider">
+
+<section id="about">
+  <div class="about-grid">
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <div class="about-avatar">LD</div>
+      <div class="experience-badge">
+        <div class="badge-dot"></div>
+        <span class="badge-text">Bolsista ativa — Mackleaps</span>
+      </div>
+    </div>
+    <div>
+      <p class="section-label">Protocolo de Identificação</p>
+      <h2 class="section-title">Quem sou eu</h2>
+      <p style="font-size: 1rem; line-height: 1.85; color: var(--text-dim); margin-bottom: 1.2rem;">
+        Sou estudante de Ciência da Computação e bolsista no <strong style="color: var(--lavender); font-weight: 500;">Mackleaps</strong>, laboratório de pesquisa da Universidade Mackenzie, onde atuo principalmente no desenvolvimento frontend — transformando ideias de pesquisa em interfaces funcionais e acessíveis.
+      </p>
+      <p style="font-size: 1rem; line-height: 1.85; color: var(--text-dim);">
+        Apaixonada pela interseção entre rigor computacional e design, acredito que boas interfaces são invisíveis — e que o código bem escrito é uma forma de arte.
+      </p>
+      <div class="about-tag-row">
+        <span class="tag">Frontend</span>
+        <span class="tag">Pesquisa</span>
+        <span class="tag">Computação</span>
+        <span class="tag">São Paulo</span>
+        <span class="tag">Mackenzie</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="skills">
+  <p class="section-label">Capacidades do Sistema</p>
+  <h2 class="section-title">Skills</h2>
+  <p class="section-subtitle">Linguagens e tecnologias que fazem parte do meu arsenal.</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">⬡</div>
+      <p class="skill-name">HTML & CSS</p>
+      <p class="skill-desc">Estrutura semântica, layouts responsivos, animações CSS e componentes visuais que vivem na web com elegância.</p>
+      <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 90%"></div></div>
+      <p class="skill-level">Avançado — 90%</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◈</div>
+      <p class="skill-name">Python</p>
+      <p class="skill-desc">Scripts, automações, análise de dados e projetos de pesquisa. Linguagem de escolha para problemas que exigem raciocínio rápido.</p>
+      <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 82%"></div></div>
+      <p class="skill-level">Avançado — 82%</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◉</div>
+      <p class="skill-name">Java</p>
+      <p class="skill-desc">Programação orientada a objetos, estruturas de dados e algoritmos. Base sólida para pensar em sistemas complexos.</p>
+      <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 75%"></div></div>
+      <p class="skill-level">Intermediário — 75%</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⟡</div>
+      <p class="skill-name">C</p>
+      <p class="skill-desc">Gerenciamento de memória, ponteiros e baixo nível. Entender C é entender como o computador realmente pensa.</p>
+      <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 70%"></div></div>
+      <p class="skill-level">Intermediário — 70%</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⌘</div>
+      <p class="skill-name">Desenvolvimento Frontend</p>
+      <p class="skill-desc">Interfaces, componentes reutilizáveis e experiências de usuário fluidas — aplicado diariamente no Mackleaps.</p>
+      <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 85%"></div></div>
+      <p class="skill-level">Avançado — 85%</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚡</div>
+      <p class="skill-name">Algoritmos & Estruturas</p>
+      <p class="skill-desc">Fundamentos de computação, lógica e resolução de problemas — o esqueleto por trás de qualquer solução de software.</p>
+      <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 78%"></div></div>
+      <p class="skill-level">Intermediário — 78%</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="projects">
+  <p class="section-label">Arquivo de Missões</p>
+  <h2 class="section-title">Projetos</h2>
+  <p class="section-subtitle">Trabalhos desenvolvidos durante a graduação e na pesquisa no Mackleaps.</p>
+  <div class="projects-grid">
+    <div class="project-card">
+      <p class="project-num">MISSÃO_01</p>
+      <p class="project-name">Interface de Site — Mackleaps</p>
+      <p class="project-desc">Desenvolvimento frontend de ferramentas em um site que possivelmente será implementado no PDPJ.</p>
+      <div class="project-tags">
+        <span class="project-tag">HTML</span>
+        <span class="project-tag">CSS</span>
+        <span class="project-tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <p class="project-num">MISSÃO_02</p>
+      <p class="project-name">Está em Xeque?</p>
+      <p class="project-desc">Projeto feito em C que verifica a partir de uma jogada de xadrez se está em xeque ou não</p>
+      <div class="project-tags">
+        <span class="project-tag">C</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <p class="project-num">MISSÃO_03</p>
+      <p class="project-name">Sistema de refatoração de notas</p>
+      <p class="project-desc">Projeto produzido em Java durante a aula que refatora todo um sistema de notas antigo.</p>
+      <div class="project-tags">
+        <span class="project-tag">Java</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="contact">
+  <p class="section-label" style="justify-content: center;">Canal de Comunicação</p>
+  <h2 class="section-title">Vamos nos conectar</h2>
+  <p class="section-subtitle" style="margin: 0 auto 0;">Aberta a projetos, colaborações e oportunidades — me encontra por aqui.</p>
+  <div class="contact-links">
+    <a href="liviacalado2006@gmail.com" class="contact-link">✉ Email</a>
+    <a href= "www.linkedin.com/in/lívia-calado-de-carvalho-dias-946071242" class="contact-link">⬡ LinkedIn</a>
+    <a href="https://github.com/livia-dias06" class="contact-link">◈ GitHub</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Lívia Dias — Ciência da Computação — Mackleaps — Sistema Online</p>
+</footer>
+
+</body>
+</html>
